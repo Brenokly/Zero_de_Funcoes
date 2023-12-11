@@ -4,21 +4,25 @@ using namespace std;
 
 int main()
 {
-  cout << "Digite a expressao matematica: ";
-  string entrada;
-  getline(cin, entrada);
+	system("chcp 1252 > nul");
 
-  cout << "Digite o valor de x: ";
-  double x;
-  cin >> x;
+	cout << "Digite a expressao matemática: ";
+	string entrada;
+	getline(cin, entrada);
 
-  unordered_map<char, double> valoresVariaveis = {{'x', x}};
+	cout << "Digite o valor de x: ";
+	double x;
+	cin >> x;
 
-  string posfixa = infixParaPosfixa(entrada);
-  cout << "Expressao posfixa: " << posfixa << endl;
+	unordered_map<char, double> valoresVariaveis = {{'x', x}};
 
-  double resultado = avaliarPosfixa(posfixa, valoresVariaveis);
-  cout << "Resultado da expressao: " << resultado << endl;
+	string posfixa = infixParaPosfixa(entrada);
 
-  return 0;
+	cout << "Expressão posfixa: " << posfixa << endl;
+
+	double resultado = avaliarPosfixa(posfixa, valoresVariaveis);
+
+	cout << "Resultado da expressão: " << resultado << endl;
+
+	return 0;
 }
