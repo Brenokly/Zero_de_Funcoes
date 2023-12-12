@@ -4,9 +4,7 @@ using namespace std;
 
 int main()
 {
-	system("chcp 1252 > nul");
-
-	cout << "Digite a expressao matemática: ";
+	cout << "Digite a expressao matematica: ";
 	string entrada;
 	getline(cin, entrada);
 
@@ -18,11 +16,11 @@ int main()
 
 	string posfixa = infixParaPosfixa(entrada);
 
-	cout << "Expressão posfixa: " << posfixa << endl;
+	cout << "Expressao posfixa: " << posfixa << endl;
 
 	double resultado = avaliarPosfixa(posfixa, valoresVariaveis);
 
-	cout << "Resultado da expressão: " << resultado << endl;
+	cout << "Resultado da expressao: " << resultado << endl;
 
 	return 0;
 }

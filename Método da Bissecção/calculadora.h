@@ -4,6 +4,8 @@
 #include <string>
 #include <unordered_map>
 
+//Arquivo de cabeçalho
+
 bool ehOperador(char ch);
 bool ehOperando(char ch);
 int obterPrecedencia(char op);
