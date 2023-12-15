@@ -15,32 +15,48 @@ int obterPrecedencia(char op);
 double aplicarOperador(char op, double operando1, double operando2);
 double avaliarPosfixa(const string& posfixa, const unordered_map<char, double>& valoresVariaveis);
 string infixParaPosfixa(const string& infixa);
+int Bisseccao(double a, double b, double x, double epsilon, int cont, const int k, string& posfixa);
 
-int main(){
-	cout << "Digite a expressao matematica: ";
-	string expressao;
-	getline(cin, expressao); // leitura da expressão
+int main() {
+    cout << "Digite a expressao matematica: ";
+    string expressao;
+    getline(cin, expressao); // leitura da expressão
 
-	cout << "Digite o valo de X: ";
-	double x;
-	cin >> x;
+    cout << fixed;
+    cout.precision(4);//precisao de 4 casas decimaiscout << fixed;
 
-	cout << infixParaPosfixa(expressao) << endl;
-
-	// Mapeia o valor de x para a variável 'x' no código
-	unordered_map<char, double> valoresVariaveis = { {'x', x} };
-        
     // Converte a expressão para a forma posfixa
     string posfixa = infixParaPosfixa(expressao);
     cout << "Expressao posfixa: " << posfixa << endl;
+    
+    cout << "Entre com os valores do intervalo" << endl;
+    cout << "A: ";
+    double a;
+    cin >> a;
 
-    // Avalia a expressão posfixa com o valor de 'x'
-    double resultado = avaliarPosfixa(posfixa, valoresVariaveis);
-    cout << "Resultado da expressao: " << resultado << endl;
+    cout << "B: ";
+    double b;
+    cin >> b;
 
-	cout << endl;
-		
-	return 0;
+    cout << "Entre com a precisao  epsilon (Ex: 0.001): ";
+    double epsilon;
+    cin >> epsilon;
+
+    int k = ceil((log10(b - a) - log10(epsilon)) / log10(2)) + 1;
+
+    cout << "K = " << k << endl;
+
+    double x = ((a + b) / 2);
+    int cont = 1;
+
+
+    if ((Bisseccao(a, b, x, epsilon, cont, k, posfixa)) == 0) {
+        // solver == 1 significa que a raiz foi encontrada
+        // solver == 0 significa que a raiz nao foi encontrada
+        cout << "Nao foi encontrada raiz no intervalo [" << a << ", " << b << "]. Especifique melhor o intervalo ou essa função nao possui intervalo!" << endl;
+    }
+
+    return 0;
 }
 
 inline int peek()
@@ -128,14 +144,12 @@ double avaliarPosfixa(const string& posfixa, const unordered_map<char, double>& 
             {
                 // Se for um número, converte dígito para double
                 string numero;
-                while (isdigit(ch) || ch == '.' && isdigit(peek()))
+                while (isdigit(ch) || ch == '.' || isdigit(peek()))
                 {
                     numero += ch;
                     ch = posfixa[++i];
                 }
                 
-                cout << numero << endl;
-
                 --i; // Volta para o último caractere não numérico ou ponto
                 // Converte o número para double e adiciona à pilha de operandos
                 pilhaOperandos.push(stod(numero));
@@ -205,6 +219,7 @@ string infixParaPosfixa(const string &infixa) {
 		  numero += ch;
 		  ch = getchar();
 	  }
+
       ungetc(ch, stdin);       // Devolve o último caractere não numérico ou ponto
       posfixa += numero + ' '; // Adiciona espaço para separar os números
     }
@@ -218,4 +233,48 @@ string infixParaPosfixa(const string &infixa) {
   }
 
   return posfixa;
+}
+
+int Bisseccao(double a, double b, double x, double epsilon, int cont, const int k, string & posfixa)
+{
+    unordered_map<char, double> valoresVariaveis = { {'x', x} };
+    double Xk = avaliarPosfixa(posfixa, valoresVariaveis);
+
+    if (abs(Xk) <= epsilon) {
+        cout << "Raiz encontrada: [F(" << x << ")] = " << Xk << "]" << endl;
+        return 1;
+    }
+    if (cont > k) {
+        cout << cont << ": Ultrapassou as " << k << " Interações!" << endl;
+        return 0;
+    }
+    
+    valoresVariaveis['x'] = a;
+    double Ak = avaliarPosfixa(posfixa, valoresVariaveis);
+
+    valoresVariaveis['x'] = b;
+    double Bk = avaliarPosfixa(posfixa, valoresVariaveis);
+    
+    if (abs(Ak) <= epsilon) {
+        cout << "Raiz encontrada: [F(" << a << ")] = " << Ak << "]" << endl;
+        if (abs(Bk) <= epsilon) {
+            cout << "Raiz encontrada: [F(" << b << ")] = " << Ak << "]" << endl;
+        }
+        return 1;
+    }
+
+    if ((Ak * Xk) < 0) {
+        b = x;
+        x = ((a + x) / 2);
+        return Bisseccao(a, b, x, epsilon, cont + 1, k, posfixa);
+    }
+    
+
+    if ((Bk * Xk) < 0) {
+       a = x;
+       x = ((b + x) / 2);
+       return Bisseccao(a, b, x, epsilon, cont + 1, k, posfixa);
+    }
+
+    return 0;
 }
