@@ -33,7 +33,7 @@ int main() {
     int cont = 1;
 
 
-    if ((Bisseccao(a, b, x, epsilon, cont, k, posfixa)) == 0) {
+    if ((Teste(a, b, x, epsilon, cont, k, posfixa)) == 0) {
         // solver == 1 significa que a raiz foi encontrada
         // solver == 0 significa que a raiz nao foi encontrada
         cout << "Nao foi encontrada raiz no intervalo [" << a << ", " << b << "]. Especifique melhor o intervalo ou essa função nao possui intervalo!" << endl;

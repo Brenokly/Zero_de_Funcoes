@@ -178,7 +178,7 @@ string infixParaPosfixa(const string& infixa) {
     return posfixa;
 }
 
-int Bisseccao(double a, double b, double x, double epsilon, int cont, const int k, string& posfixa)
+int Teste(double a, double b, double x, double epsilon, int cont, const int k, string& posfixa)
 {
     unordered_map<char, double> valoresVariaveis = { {'x', x} };
     double Xk = avaliarPosfixa(posfixa, valoresVariaveis);
@@ -209,14 +209,14 @@ int Bisseccao(double a, double b, double x, double epsilon, int cont, const int 
     if ((Ak * Xk) < 0) {
         b = x;
         x = ((a + x) / 2);
-        return Bisseccao(a, b, x, epsilon, cont + 1, k, posfixa);
+        return Teste(a, b, x, epsilon, cont + 1, k, posfixa);
     }
 
 
     if ((Bk * Xk) < 0) {
         a = x;
         x = ((b + x) / 2);
-        return Bisseccao(a, b, x, epsilon, cont + 1, k, posfixa);
+        return Teste(a, b, x, epsilon, cont + 1, k, posfixa);
     }
 
     return 0;
