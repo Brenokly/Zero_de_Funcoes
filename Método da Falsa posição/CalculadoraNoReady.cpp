@@ -31,14 +31,14 @@ int iteracao(double a, double b, double x, double epsilon, int cont, int k) {
 
     if ((Ak * Xk) < 0) {
         b = x;
-        x = ((a + x) / 2);
+        x = (((a * abs(Bk)) + (b * abs(Ak))) / (abs(Ak) + abs(Bk)));
         return iteracao(a, b, x, epsilon, cont + 1, k);
     }
 
 
     if ((Bk * Xk) < 0) {
         a = x;
-        x = ((b + x) / 2);
+        x = (((a * abs(Bk)) + (b * abs(Ak))) / (abs(Ak) + abs(Bk)));
         return iteracao(a, b, x, epsilon, cont + 1, k);
     }
 

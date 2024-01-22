@@ -22,9 +22,14 @@ int main() {
     double epsilon;
     cin >> epsilon;
 
-    int k = ceil((log10(abs(b - a)) - log10(epsilon)) / log10(2)) + 1;
+    cout << "Quantos vezes desejar repetir o processo de divisao? (k): ";
+    int k = 0;
+    cin >> k;
 
-    double x = ((a + b) / 2);
+    double Bk = funcao(b);
+    double Ak = funcao(a);
+
+    double x = (((a * abs(Bk)) + (b * abs(Ak))) / (abs(Ak) + abs(Bk)));
     int cont = 1;
 
 
