@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "CalculadoraNoReady.h"
+#include "CalculadoraNoRead.h"
 using namespace std;
 
 inline double funcao(double x) {
@@ -12,7 +12,7 @@ int iteracao(double a, double b, double x, double epsilon, int cont, int k) {
     double Ak = funcao(a);
     double Bk = funcao(b);
 
-    if (abs(Xk) < epsilon) {
+    if (abs(Xk) < epsilon || abs(Xk - x) < epsilon) {
         cout << "Raiz encontrada: [F(" << x << ")] = " << Xk << "]" << endl;
         return 1;
     }

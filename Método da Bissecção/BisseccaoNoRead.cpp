@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CalculadoraNoReady.h"
+#include "CalculadoraNoRead.h"
 using namespace std;
 
 // Método da bissecção; Zero de Funções
